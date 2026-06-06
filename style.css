@@ -1,0 +1,461 @@
+/* ─── Reset & Base ─────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --peach:      #f9d4c0;
+  --rose:       #f5bfcd;
+  --mint:       #c4e8df;
+  --lavender:   #dcd0f5;
+  --cream:      #fdf6f0;
+  --text-dark:  #3a2e2e;
+  --text-mid:   #7a6a6a;
+  --text-light: #b09898;
+  --accent:     #d97b6c;
+  --accent-2:   #9f7ed6;
+  --white:      #ffffff;
+  --radius-sm:  10px;
+  --radius-md:  16px;
+  --radius-lg:  28px;
+  --shadow-soft: 0 2px 0 rgba(255,255,255,0.8) inset,
+                 0 -2px 0 rgba(180,140,130,0.15) inset,
+                 6px 6px 16px rgba(210,170,155,0.35),
+                 -4px -4px 12px rgba(255,255,255,0.75);
+  --shadow-card: 8px 8px 32px rgba(210,175,165,0.4),
+                 -4px -4px 16px rgba(255,255,255,0.85),
+                 0 2px 0 rgba(255,255,255,0.9) inset,
+                 0 -1px 0 rgba(200,160,145,0.2) inset;
+}
+
+html, body {
+  min-height: 100vh;
+  font-family: 'Jost', sans-serif;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ─── Background Blobs ──────────────────────────── */
+.bg-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  opacity: 0.55;
+}
+
+.blob-1 {
+  width: 480px;
+  height: 480px;
+  background: var(--peach);
+  top: -120px;
+  left: -100px;
+  animation: drift 14s ease-in-out infinite;
+}
+
+.blob-2 {
+  width: 360px;
+  height: 360px;
+  background: var(--lavender);
+  top: 30%;
+  right: -80px;
+  animation: drift 18s ease-in-out infinite reverse;
+}
+
+.blob-3 {
+  width: 300px;
+  height: 300px;
+  background: var(--mint);
+  bottom: -60px;
+  left: 30%;
+  animation: drift 22s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(20px, -30px) scale(1.04); }
+  66%       { transform: translate(-15px, 20px) scale(0.97); }
+}
+
+/* ─── Layout ────────────────────────────────────── */
+.container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+/* ─── Card ──────────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 460px;
+  background: rgba(253, 246, 240, 0.72);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2.25rem;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(255,255,255,0.75);
+  backdrop-filter: blur(20px);
+  animation: cardIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ─── Card Header ───────────────────────────────── */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.icon-ring {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+  box-shadow: var(--shadow-soft);
+}
+
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.1;
+  letter-spacing: -0.3px;
+}
+
+.card-subtitle {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-light);
+  margin-top: 3px;
+  letter-spacing: 0.1px;
+}
+
+/* ─── Field Group ───────────────────────────────── */
+.field-group {
+  margin-bottom: 1.5rem;
+}
+
+.field-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  margin-bottom: 12px;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.5fr;
+  gap: 10px;
+}
+
+.input-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-wrap input {
+  width: 100%;
+  padding: 14px 10px 12px;
+  background: var(--white);
+  border: 1px solid rgba(210, 175, 165, 0.3);
+  border-radius: var(--radius-sm);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-dark);
+  text-align: center;
+  outline: none;
+  box-shadow: var(--shadow-soft);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  /* moz-appearance: textfield; */
+}
+
+.input-wrap input::-webkit-outer-spin-button,
+.input-wrap input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-wrap input::placeholder {
+  color: var(--text-light);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.input-wrap input:focus {
+  border-color: rgba(215, 123, 108, 0.5);
+  box-shadow: 0 2px 0 rgba(255,255,255,0.9) inset,
+              0 -1px 0 rgba(200,160,145,0.15) inset,
+              4px 4px 12px rgba(210,170,155,0.3),
+              -2px -2px 8px rgba(255,255,255,0.8),
+              0 0 0 3px rgba(217, 123, 108, 0.12);
+}
+
+.input-tag {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.8px;
+  color: var(--text-light);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* ─── Error Message ─────────────────────────────── */
+.error-msg {
+  font-size: 12px;
+  color: #c0534a;
+  margin-top: 10px;
+  display: none;
+  padding-left: 2px;
+}
+
+.error-msg.show {
+  display: block;
+}
+
+/* ─── Button ────────────────────────────────────── */
+.calc-btn {
+  width: 100%;
+  padding: 16px 24px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #e8927e 0%, #d97b6c 50%, #cc6b5a 100%);
+  color: #fff;
+  font-family: 'Jost', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 2px 0 rgba(255,255,255,0.25) inset,
+              0 -3px 0 rgba(0,0,0,0.12) inset,
+              4px 8px 24px rgba(217, 123, 108, 0.45),
+              -2px -2px 8px rgba(255,255,255,0.6);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  position: relative;
+  top: 0;
+}
+
+.calc-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 0 rgba(255,255,255,0.25) inset,
+              0 -3px 0 rgba(0,0,0,0.12) inset,
+              4px 12px 32px rgba(217, 123, 108, 0.55),
+              -2px -2px 8px rgba(255,255,255,0.6);
+}
+
+.calc-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.2) inset,
+              0 -1px 0 rgba(0,0,0,0.1) inset,
+              2px 4px 12px rgba(217, 123, 108, 0.3);
+}
+
+.btn-arrow {
+  transition: transform 0.2s ease;
+}
+
+.calc-btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* ─── Result Area ───────────────────────────────── */
+.result-area {
+  display: none;
+  margin-top: 1.75rem;
+}
+
+.result-area.show {
+  display: block;
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.result-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+}
+
+.result-divider::before,
+.result-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(210,175,165,0.4), transparent);
+}
+
+.result-divider span {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+/* ─── Result Boxes ──────────────────────────────── */
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.result-box {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 18px 10px 16px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(255,255,255,0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.result-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.result-box:nth-child(1)::before { background: linear-gradient(90deg, #f9d4c0, #f5bfcd); }
+.result-box:nth-child(2)::before { background: linear-gradient(90deg, #dcd0f5, #c4e8df); }
+.result-box:nth-child(3)::before { background: linear-gradient(90deg, #c4e8df, #f9d4c0); }
+
+.result-val {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.result-unit {
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-top: 6px;
+}
+
+/* ─── Birthday Card ─────────────────────────────── */
+.birthday-card {
+  background: linear-gradient(135deg, rgba(249,212,192,0.4) 0%, rgba(220,208,245,0.4) 100%);
+  border: 1px solid rgba(249,212,192,0.6);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 2px 4px 16px rgba(210,175,165,0.2),
+              -1px -1px 6px rgba(255,255,255,0.7);
+}
+
+.bday-icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.bday-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bday-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+.bday-val {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-dark);
+}
+
+/* ─── Responsive ────────────────────────────────── */
+@media (max-width: 480px) {
+  .card {
+    padding: 2rem 1.5rem;
+    border-radius: 22px;
+  }
+
+  .card-title {
+    font-size: 22px;
+  }
+
+  .result-val {
+    font-size: 32px;
+  }
+
+  .input-row {
+    grid-template-columns: 1fr 1fr 1.3fr;
+    gap: 8px;
+  }
+
+  .input-wrap input {
+    font-size: 18px;
+    padding: 12px 8px 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .result-grid {
+    gap: 8px;
+  }
+
+  .result-val {
+    font-size: 28px;
+  }
+}
